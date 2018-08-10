@@ -16,12 +16,22 @@ output:
   word_document:
     toc: yes
     toc_depth: '2'
+  institution:
+    choices:
+    - International Centre for Theoretical Physics
+    - CODATA-RDA Summer School
+    - Elsevier Inc
+    - California Institute of Technology
+    input: select
+    label: 'Institution:'
+    value: CODATA-RDA Summer School
 bibliography: 
 - oajournals.bib
 - packages.bib
-
 ---
 
+*****
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
 *****
 
 ```{r setup, include=FALSE, echo = FALSE}
@@ -272,11 +282,25 @@ doaj_seal %>%
 <||
 
 
-#### Principal Investigator's BioSketch
+## Principal Investigator's BioSketch
 
-This is auto-populated from your ORCID profile using the  rorcid package. @R-rorcid.
+_This is auto-populated from your ORCID profile using the @R-rorcid `rorcid` package._
 
-||> insert code from insert_orcid.R <||
+```{r orcid-bio, echo= FALSE}
+library ('rorcid')
+library('httpuv')
+
+token <- orcid_auth(scope = "/authenticate", reauth = TRUE, redirect_uri = getOption("rorcid.redirect_uri"))
+
+res <- orcid_bio(orcid = "0000-0003-4996-5623")
+bio <- res$'0000-0003-4996-5623'$'content'
+
+
+```
+
+`r bio`
+
+
 
 
 # References
